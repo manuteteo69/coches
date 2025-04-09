@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Coches</string>
+    <string name="marketplace">Marketplace to buy and sell cars.</string>
+    <string name="select_country">Select your country</string>
+    <string name="btn_skip">Skip</string>
+    <string name="btn_next">Next</string>
 </resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="360dp"
+    android:viewportWidth="200"
+    android:viewportHeight="360">
+
+    <!--
+         Empezamos en (200,0), bajamos hasta (200,360),
+         vamos a (50,360) y dibujamos una curva hasta (50,0)
+         usando un control point en (0,180).
+         Eso produce una franja vertical con la curva en el interior.
+    -->
+    <path
+        android:fillColor="#FF0000"
+        android:pathData="M200,0 L200,360 L50,360 Q0,180 50,0 Z" />
+</vector>
