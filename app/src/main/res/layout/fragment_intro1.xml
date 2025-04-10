@@ -16,22 +16,33 @@
         app:layout_constraintWidth_percent="0.3"
         android:src="@drawable/red_curve"/>
     <!-- Spinner con banderas (lo personalizaremos en el paso 3) -->
-    <Spinner
-        android:id="@+id/spinner_country"
+    <FrameLayout
+        android:id="@+id/fl_spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:padding="12dp"
-        android:layoutDirection="ltr"
-        android:drawableEnd="@drawable/arrow_dropdown"
-        android:drawablePadding="8dp"
-        android:background="@drawable/bg_spinner_gradient"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.8"/>
+        app:layout_constraintWidth_percent="0.8">
 
+        <Spinner
+            android:id="@+id/spinner_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layoutDirection="ltr"
+            android:background="@drawable/bg_spinner_gradient" />
 
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/arrow_dropdown"
+            android:contentDescription="Dropdown arrow"
+            android:paddingEnd="8dp"/>
+    </FrameLayout>
     <!-- Texto con "buy" y "sell" en rojo (se modifica en IntroFragment) -->
 
     <!-- Imagen del Porsche, anclada más abajo -->

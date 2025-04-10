@@ -43,8 +43,18 @@ public class CountryAdapter extends BaseAdapter {
     }
 
     // Para el dropdown, si quieres el mismo layout:
+    // Vista del dropdown usando spinner_item.xml
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return getView(position, convertView, parent);
+        if (convertView == null) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            convertView = inflater.inflate(R.layout.spinner_item, parent, false);
+        }
+        ImageView imgFlag = convertView.findViewById(R.id.img_flag);
+        TextView txtCountry = convertView.findViewById(R.id.txt_country);
+        CountryItem item = list.get(position);
+        imgFlag.setImageResource(item.flagRes);
+        txtCountry.setText(item.countryName);
+        return convertView;
     }
 }
