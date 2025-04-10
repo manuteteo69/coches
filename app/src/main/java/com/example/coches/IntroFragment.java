@@ -100,13 +100,12 @@ public class IntroFragment extends Fragment {
 
             case 3:
                 view = inflater.inflate(R.layout.fragment_intro3, container, false);
-                // Se asume que en fragment_intro3.xml tienes un TextView con id "txt_vehicles"
-                // que actuará como subtítulo dinámico (alineado a la izquierda, con el mismo top que en los otros fragments)
-                TextView txtVehicles = view.findViewById(R.id.txt_vehicles);
+                // Solo actualizamos el subtítulo (txt_vehicles) con el texto dinámico
+                TextView txtVehicles = view.findViewById(R.id.txt_subtitle);
                 SharedPreferences prefs = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE);
                 String selectedCountry = prefs.getString("country", "your country");
 
-                // Definir número de coches según país (puedes ajustar estos valores)
+                // Definir número de coches según país
                 Map<String, Integer> carsMap = new HashMap<>();
                 carsMap.put("Spain", 12345);
                 carsMap.put("United Kingdom", 30000);
@@ -117,10 +116,10 @@ public class IntroFragment extends Fragment {
                 // Formatear el número para incluir comas (ej. "12,345")
                 String numberStr = NumberFormat.getInstance().format(carsForSale);
 
-                // Construir el texto final: solo el número se colorea en rojo
+                // Construir el texto final: solo el número se pinta en rojo
                 String dynamicText = numberStr + " cars for sale in " + selectedCountry;
                 SpannableString spannableDynamic = new SpannableString(dynamicText);
-                // Pintar solo el número (desde índice 0 hasta la longitud del número)
+                // Pintar solo el número (índice 0 hasta numberStr.length())
                 spannableDynamic.setSpan(
                         new ForegroundColorSpan(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)),
                         0,

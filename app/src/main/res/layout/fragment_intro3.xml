@@ -7,20 +7,20 @@
     android:background="@drawable/bemeta"
     android:padding="32dp">
 
-    <!-- Título con margen top para coincidir con las otras pantallas (ej. 190dp) -->
+    <!-- Título fijo -->
     <TextView
         android:id="@+id/txt_vehicles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="170dp"
         android:text="Explore\navailable\nvehicles online"
-        android:textSize="28sp"
+        android:textSize="42sp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:gravity="left"
-    android:paddingBottom="8dp"/>
+        android:paddingBottom="8dp"/>
 
-    <!-- Subtítulo (donde formatearemos el número en rojo dinámicamente) -->
+    <!-- Subtítulo dinámico: "XXXX cars for sale in ???" -->
     <TextView
         android:id="@+id/txt_subtitle"
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         android:gravity="left"
         android:layout_marginTop="8dp"/>
 
-    <!-- Hueco flexible para empujar el botón abajo (opcional) -->
+    <!-- Hueco flexible para empujar el botón abajo -->
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
