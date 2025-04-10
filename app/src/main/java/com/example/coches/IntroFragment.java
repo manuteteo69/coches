@@ -3,7 +3,9 @@ package com.example.coches;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.*;
@@ -13,8 +15,11 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class IntroFragment extends Fragment {
     private static final String ARG_SCREEN = "screen";
@@ -69,7 +74,7 @@ public class IntroFragment extends Fragment {
                     spannable.setSpan(
                             new ForegroundColorSpan(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)),
                             startBuy, startBuy + "buy".length(),
-                            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                     );
                 }
                 int startSell = fullText.indexOf("sell");
@@ -77,7 +82,7 @@ public class IntroFragment extends Fragment {
                     spannable.setSpan(
                             new ForegroundColorSpan(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)),
                             startSell, startSell + "sell".length(),
-                            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                     );
                 }
                 txtIntro.setText(spannable);
@@ -95,10 +100,35 @@ public class IntroFragment extends Fragment {
 
             case 3:
                 view = inflater.inflate(R.layout.fragment_intro3, container, false);
-                TextView countryText = view.findViewById(R.id.txt_vehicles);
+                // Se asume que en fragment_intro3.xml tienes un TextView con id "txt_vehicles"
+                // que actuará como subtítulo dinámico (alineado a la izquierda, con el mismo top que en los otros fragments)
+                TextView txtVehicles = view.findViewById(R.id.txt_vehicles);
                 SharedPreferences prefs = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE);
                 String selectedCountry = prefs.getString("country", "your country");
-                countryText.setText("Explore available vehicles online in " + selectedCountry);
+
+                // Definir número de coches según país (puedes ajustar estos valores)
+                Map<String, Integer> carsMap = new HashMap<>();
+                carsMap.put("Spain", 12345);
+                carsMap.put("United Kingdom", 30000);
+                carsMap.put("United States", 50000);
+                carsMap.put("Portugal", 8000);
+
+                int carsForSale = carsMap.getOrDefault(selectedCountry, 0);
+                // Formatear el número para incluir comas (ej. "12,345")
+                String numberStr = NumberFormat.getInstance().format(carsForSale);
+
+                // Construir el texto final: solo el número se colorea en rojo
+                String dynamicText = numberStr + " cars for sale in " + selectedCountry;
+                SpannableString spannableDynamic = new SpannableString(dynamicText);
+                // Pintar solo el número (desde índice 0 hasta la longitud del número)
+                spannableDynamic.setSpan(
+                        new ForegroundColorSpan(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)),
+                        0,
+                        numberStr.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+                txtVehicles.setText(spannableDynamic);
+
                 view.findViewById(R.id.btn_start).setOnClickListener(v -> {
                     startActivity(new Intent(getActivity(), HomeActivity.class));
                     requireActivity().finish();
@@ -108,7 +138,6 @@ public class IntroFragment extends Fragment {
             default:
                 view = inflater.inflate(R.layout.fragment_intro1, container, false);
         }
-
         return view;
     }
 

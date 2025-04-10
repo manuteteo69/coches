@@ -1,6 +1,7 @@
 package com.example.coches;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -43,29 +44,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateDots(int position) {
-        // Define el color para los dots no seleccionados (por ejemplo, gris)
-        int unselectedColor = ContextCompat.getColor(this, android.R.color.darker_gray);
+        if (position == 2) {
+            // Ocultar los dots en el último fragment
+            dot1.setVisibility(View.GONE);
+            dot2.setVisibility(View.GONE);
+            dot3.setVisibility(View.GONE);
+        } else {
+            // Asegurarse de que los dots estén visibles en las otras pantallas
+            dot1.setVisibility(View.VISIBLE);
+            dot2.setVisibility(View.VISIBLE);
+            dot3.setVisibility(View.VISIBLE);
 
-        // Para el dot seleccionado, usamos un color dependiendo de la página:
-        // Página 0 → rojo, Página 1 → negro, Página 2 → puede ser el mismo que el no seleccionado o el que necesites.
-        int selectedColor;
-        switch (position) {
-            case 0:
-                selectedColor = ContextCompat.getColor(this, android.R.color.holo_red_dark);
-                break;
-            case 1:
-                selectedColor = ContextCompat.getColor(this, android.R.color.black);
-                break;
-            default:
-                selectedColor = unselectedColor; // Para la página 3 o más, puedes ajustar el color
-                break;
+            int unselectedColor = ContextCompat.getColor(this, android.R.color.darker_gray);
+            int selectedColor;
+            switch (position) {
+                case 0:
+                    selectedColor = ContextCompat.getColor(this, android.R.color.holo_red_dark);
+                    break;
+                case 1:
+                    selectedColor = ContextCompat.getColor(this, android.R.color.black);
+                    break;
+                default:
+                    selectedColor = unselectedColor;
+                    break;
+            }
+            dot1.setColorFilter(position == 0 ? selectedColor : unselectedColor);
+            dot2.setColorFilter(position == 1 ? selectedColor : unselectedColor);
+            dot3.setColorFilter(position == 2 ? selectedColor : unselectedColor);
         }
-
-        // Aplicamos el color a cada dot. Si el dot corresponde a la página actual, lo pintamos con selectedColor,
-        // en caso contrario, con el color no seleccionado.
-        dot1.setColorFilter(position == 0 ? selectedColor : unselectedColor);
-        dot2.setColorFilter(position == 1 ? selectedColor : unselectedColor);
-        dot3.setColorFilter(position == 2 ? selectedColor : unselectedColor);
-    }
-
-}
+    }}
