@@ -44,32 +44,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateDots(int position) {
-        if (position == 2) {
-            // Ocultar los dots en el último fragment
+        if (position == 2) { // Si estamos en el tercer fragment, ocultamos todos los dots
             dot1.setVisibility(View.GONE);
             dot2.setVisibility(View.GONE);
             dot3.setVisibility(View.GONE);
         } else {
-            // Asegurarse de que los dots estén visibles en las otras pantallas
+            // Aseguramos que los dots sean visibles en las otras páginas
             dot1.setVisibility(View.VISIBLE);
             dot2.setVisibility(View.VISIBLE);
             dot3.setVisibility(View.VISIBLE);
 
-            int unselectedColor = ContextCompat.getColor(this, android.R.color.darker_gray);
-            int selectedColor;
-            switch (position) {
-                case 0:
-                    selectedColor = ContextCompat.getColor(this, android.R.color.holo_red_dark);
-                    break;
-                case 1:
-                    selectedColor = ContextCompat.getColor(this, android.R.color.black);
-                    break;
-                default:
-                    selectedColor = unselectedColor;
-                    break;
+            // Asignamos los drawables de base
+            dot1.setImageResource(R.drawable.dot_selected);
+            dot2.setImageResource(R.drawable.dot_unselected);
+            dot3.setImageResource(R.drawable.dot_unselected);
+
+            // Según la página, modificamos el color del dot seleccionado (dot1)
+            // Para fragment 1 (position 0), pintamos de rojo; para fragment 2 (position 1), de negro.
+            if (position == 0) {
+                dot1.setColorFilter(ContextCompat.getColor(this, R.color.newred));
+            } else if (position == 1) {
+                dot1.setColorFilter(ContextCompat.getColor(this, android.R.color.black));
             }
-            dot1.setColorFilter(position == 0 ? selectedColor : unselectedColor);
-            dot2.setColorFilter(position == 1 ? selectedColor : unselectedColor);
-            dot3.setColorFilter(position == 2 ? selectedColor : unselectedColor);
+
+            // En este ejemplo, los otros dots se dejan sin ColorFilter para mostrar su color original definido en el XML.
+            dot2.clearColorFilter();
+            dot3.clearColorFilter();
         }
-    }}
+    }
+
+}
